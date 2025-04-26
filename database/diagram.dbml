@@ -1,0 +1,24 @@
+Table Book {
+  id serial [pk]
+  title varchar(255) [not null]
+  total_amount integer [not null]
+  available_amount integer [not null]
+}
+
+Table User {
+  id serial [pk]
+  first_name varchar(255) [not null]
+  last_name varchar(255) [not null]
+  email varchar(255) [not null]
+  phone varchar(20) [not null]
+}
+
+Table Loan {
+  id serial [pk]
+  loan_date date [not null]
+  real_return_date date [not null]
+  expected_return_date date [not null]
+  loan_state varchar(20) [not null]
+  user_id serial [ref: > User.id]
+  book_id serial [ref: > Book.id]
+}
