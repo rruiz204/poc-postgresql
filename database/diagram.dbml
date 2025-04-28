@@ -1,8 +1,28 @@
+Table Author {
+  id serial [pk]
+  first_name varchar(255) [not null]
+  last_name varchar(255) [not null]
+  website varchar(255) [not null]
+  is_active boolean [default: true]
+}
+
+Table Editorial {
+  id serial [pk]
+  name varchar(255) [not null]
+  email varchar(255) [not null]
+  phone varchar(255) [not null]
+  country varchar(255) [not null]
+  website varchar(255) [not null]
+  is_active boolean [default: true]
+}
+
 Table Book {
   id serial [pk]
   title varchar(255) [not null]
   total_amount integer [not null]
   available_amount integer [not null]
+  author_id integer [ref: > Author.id]
+  editorial_id integer [ref: > Editorial.id]
 }
 
 Table User {
@@ -15,10 +35,15 @@ Table User {
 
 Table Loan {
   id serial [pk]
-  loan_date date [not null]
-  real_return_date date [not null]
-  expected_return_date date [not null]
-  loan_state varchar(20) [not null]
-  user_id serial [ref: > User.id]
-  book_id serial [ref: > Book.id]
+  due_date date [not null]
+  borrowed_date date [not null]
+  actual_return_date date [not null]
+  user_id integer [ref: > User.id]
+  book_id integer [ref: > Book.id]
+  state_id integer [ref: > LoanState.id]
+}
+
+Table LoanState {
+  id serial [pk]
+  name varhcar(30) [not null]
 }
